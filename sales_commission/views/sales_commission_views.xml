@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="sales_commission_views" model="ir.actions.act_window">
+    <field name="name">Sales Commission</field>
+    <field name="res_model">sale.commission</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <menuitem id="menu_sale_commission"
+            name="Sales Commission"
+            action="sales_commission_views"
+            groups="base.group_user"/>
+</odoo>
