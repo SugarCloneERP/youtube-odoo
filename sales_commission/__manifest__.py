@@ -6,7 +6,7 @@
     'summary': 'Sales Person Commission',
     'sequence': 10,
     'category': 'CRM/Sales',
-    'depends': ['base'],
+    'depends': ['base', 'mail'],
     'data': [
         'security/ir.model.access.csv',
         'views/sales_commission_views.xml',

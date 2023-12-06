@@ -1,9 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+  <record id="sale_commission_view_form" model="ir.ui.view">
+    <field name="name">sale.commission.form</field>
+    <field name="model">sale.commission</field>
+    <field name="arch" type="xml">
+      <form string="Sale Commission Form">
+        <header>
+          <field name="state" widget="statusbar" statusbar_visible="draft,done" />
+        </header>
+        <sheet>
+          <div class="oe_title">
+              <h1><field name="name" placeholder="e.g. Commission name"/></h1>
+          </div>
+          <group>
+            <group>
+              <field name="date" />
+            </group>
+            <group>
+              <field name="priority" />
+              <field name="percent" />
+            </group>
+          </group>
+          <group>
+            <field name="notes" />
+          </group>
+        </sheet>
+        <div class="oe_chatter">
+            <field name="message_follower_ids"/>
+            <field name="activity_ids"/>
+            <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <record id="sale_commission_tree_view" model="ir.ui.view">
+    <field name="name">sale.commission.tree</field>
+    <field name="model">sale.commission</field>
+    <field name="priority">10</field>
+    <field name="arch" type="xml">
+      <tree string="Sale Commission Tree">
+          <field name="name"/>
+          <field name="code" />
+          <field name="date" optional="show"/>
+          <field name="percent" optional="hide"/>
+          <field name="state" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_sale_commission_kanban" model="ir.ui.view">
+    <field name="name">sale.commission.kanban</field>
+    <field name="model">sale.commission</field>
+    <field name="arch" type="xml">
+      <kanban>
+        <field name="name"/>
+        <field name="code"/>
+        <templates>
+          <t t-name="kanban-box">
+            <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+              <div>
+                <strong class="o_kanban_record_title"><span><field name="name"/></span></strong>
+              </div>
+                <div>
+                  <span class="o_kanban_record_subtitle"><field name="code"/></span>
+                </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+  <record id="view_sale_commission_filter" model="ir.ui.view">
+    <field name="name">sale.commission.search</field>
+    <field name="model">sale.commission</field>
+    <field name="arch" type="xml">
+      <search string="Sale Commission Search">
+        <field name="name"/>
+        <field name="code"/>
+        <group expand="0" string="Group By">
+            <filter string="State"
+                    name="group_by_state"
+                    context="{'group_by':'state'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
   <record id="sales_commission_views" model="ir.actions.act_window">
     <field name="name">Sales Commission</field>
     <field name="res_model">sale.commission</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">kanban,tree,form</field>
   </record>
   <menuitem id="menu_sale_commission"
             name="Sales Commission"
